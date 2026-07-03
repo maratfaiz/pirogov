@@ -203,10 +203,9 @@
 <script type="text/x-dc" data-dc-script>
 
 class Component extends DCLogic {
-  // Вставьте сюда URL веб-приложения Google Apps Script (заканчивается на /exec).
-  // См. инструкцию по развёртыванию скрипта, который пишет заявки в Google Таблицу
+  // URL веб-приложения Google Apps Script, которое пишет заявки в Google Таблицу
   // и дублирует их на почту.
-  SHEET_ENDPOINT = 'ВСТАВЬТЕ_СЮДА_URL_ВАШЕГО_APPS_SCRIPT';
+  SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbyFKDE93Rgx6FSlgvp80voFioOm4FyHJWNx3LUQgfNChmlOZrTGsMcP5_any88be_LzKA/exec';
 
   state = {
     submitted: false,
