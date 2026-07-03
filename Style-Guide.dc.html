@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;background:#F6F8FB;}
+  a{text-decoration:none;}
+
+  /* ===== Mobile adaptation ===== */
+  @media (max-width:900px){
+    div[style*="grid-template-columns:repeat(3,1fr)"]{grid-template-columns:1fr !important;}
+    div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+    section[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;gap:32px !important;}
+    div[style*="grid-template-columns:repeat(5,1fr)"]{grid-template-columns:repeat(2,1fr) !important;row-gap:20px !important;}
+    div[style*="grid-template-columns:1.1fr 0.7fr 0.9fr"]{grid-template-columns:1fr !important;gap:32px !important;}
+    div[style*="grid-template-columns:1.3fr 1fr"]{grid-template-columns:1fr !important;gap:32px !important;}
+    div[style*="grid-template-columns:repeat(2,1fr)"]{grid-template-columns:1fr !important;}
+    div[style*="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))"]{grid-template-columns:repeat(2,1fr) !important;}
+    div[style*="border-right:1px solid rgba(11,37,69,0.08)"]{border-right:none !important;padding-bottom:14px !important;border-bottom:1px solid rgba(11,37,69,0.08) !important;}
+  }
+  @media (max-width:820px){
+    div[style*="padding:18px 40px"]{padding:14px 16px !important;}
+    header nav[style*="gap:2px"]{overflow-x:auto !important;-webkit-overflow-scrolling:touch !important;max-width:100% !important;scrollbar-width:none !important;}
+    header nav[style*="gap:2px"]::-webkit-scrollbar{display:none !important;}
+    header nav[style*="gap:2px"] a{white-space:nowrap !important;flex-shrink:0 !important;}
+    a[style*="font-size:16px;font-weight:800"]{font-size:14px !important;}
+    div[style*="font-size:16px;font-weight:800"]{font-size:14px !important;}
+    div[style*="font-size:15px;font-weight:800"]{font-size:13.5px !important;}
+  }
+  @media (max-width:640px){
+    h1{font-size:28px !important;line-height:1.22 !important;letter-spacing:-0.4px !important;}
+    h2{font-size:22px !important;}
+    section{padding-left:20px !important;padding-right:20px !important;}
+    main{padding-left:0 !important;}
+    div[style*="padding:0 40px"]{padding-left:20px !important;padding-right:20px !important;}
+    div[style*="padding: 88px 40px"], div[style*="padding:88px 40px"]{padding-left:20px !important;padding-right:20px !important;}
+    header > div{padding-left:16px !important;padding-right:16px !important;}
+    footer{padding-left:20px !important;padding-right:20px !important;}
+  }
+</style>
+</helmet>
+
+<div style="font-family:'Inter',sans-serif;color:#1B2637;background:#F6F8FB;min-height:100vh;width:100%;">
+
+  <!-- NAV -->
+  <header style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(11,37,69,0.07);">
+    <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:18px 24px;gap:16px;flex-wrap:wrap;">
+      <a href="index.dc.html" style="display:flex;align-items:center;gap:13px;min-width:0;">
+        <svg width="36" height="36" viewBox="0 0 38 38" fill="none" style="flex:none;">
+          <circle cx="19" cy="19" r="18" stroke="#1B63C7" stroke-width="1.4"></circle>
+          <path d="M5 19C9 12 14 9 19 9C24 9 29 12 33 19C29 26 24 29 19 29C14 29 9 26 5 19Z" stroke="#1B63C7" stroke-width="1.4"></path>
+          <circle cx="19" cy="19" r="4.5" fill="#2F6FED"></circle>
+        </svg>
+        <div style="line-height:1.2;min-width:0;">
+          <div style="font-size:15px;font-weight:800;letter-spacing:-0.3px;color:#0B2545;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Пироговский Офтальмологический Форум</div>
+        </div>
+      </a>
+      <nav style="display:flex;align-items:center;gap:2px;flex-wrap:wrap;">
+        <a href="index.dc.html" style="padding:9px 14px;border-radius:100px;font-size:13px;letter-spacing:0.3px;color:#5B6B82;background:transparent;font-weight:600;white-space:nowrap;">О ФОРУМЕ</a>
+        <a href="programme.dc.html" style="padding:9px 14px;border-radius:100px;font-size:13px;letter-spacing:0.3px;color:#5B6B82;background:transparent;font-weight:600;white-space:nowrap;">ПРОГРАММА</a>
+        <a href="participants.dc.html" style="padding:9px 14px;border-radius:100px;font-size:13px;letter-spacing:0.3px;color:#5B6B82;background:transparent;font-weight:600;white-space:nowrap;">УЧАСТНИКАМ</a>
+        <a href="partners.dc.html" style="padding:9px 14px;border-radius:100px;font-size:13px;letter-spacing:0.3px;color:#5B6B82;background:transparent;font-weight:600;white-space:nowrap;">ПАРТНЁРАМ</a>
+      </nav>
+      <a href="registration.dc.html" style="flex:none;padding:11px 20px;border-radius:100px;background:#0B2545;color:#fff;font-size:13px;font-weight:600;letter-spacing:0.4px;white-space:nowrap;">РЕГИСТРАЦИЯ</a>
+    </div>
+  </header>
+
+  <main style="max-width:1200px;margin:0 auto;padding:64px 40px 120px;">
+
+    <div style="margin-bottom:56px;">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+        <div style="width:28px;height:2px;background:#2F6FED;"></div>
+        <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2F6FED;">ДЛЯ ДИЗАЙНЕРОВ И РАЗРАБОТЧИКОВ</div>
+      </div>
+      <h1 style="font-size:40px;font-weight:800;letter-spacing:-1px;color:#0B2545;margin:0 0 14px;">Стайлгайд сайта</h1>
+      <p style="font-size:15.5px;color:#5B6B82;line-height:1.7;max-width:640px;margin:0;">Единый визуальный язык проекта: цвета, типографика, кнопки, карточки и другие компоненты, используемые на всех страницах.</p>
+    </div>
+
+    <!-- COLORS -->
+    <section style="margin-bottom:64px;">
+      <h2 style="font-size:22px;font-weight:800;letter-spacing:-0.4px;color:#0B2545;margin:0 0 24px;">Цвета</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px;">
+        <sc-for list="{{ colors }}" as="c" hint-placeholder-count="8">
+          <div style="background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 12px rgba(11,37,69,0.03), 0 16px 32px -14px rgba(11,37,69,0.1);">
+            <div style="height:88px;background:{{ c.hex }};"></div>
+            <div style="padding:16px 18px;">
+              <div style="font-size:13.5px;font-weight:700;color:#0B2545;margin-bottom:3px;">{{ c.name }}</div>
+              <div style="font-size:12.5px;color:#7A8AA0;font-family:monospace;">{{ c.hex }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- TYPOGRAPHY -->
+    <section style="margin-bottom:64px;">
+      <h2 style="font-size:22px;font-weight:800;letter-spacing:-0.4px;color:#0B2545;margin:0 0 24px;">Типографика</h2>
+      <div style="background:#fff;border-radius:16px;padding:40px;box-shadow:0 4px 12px rgba(11,37,69,0.03), 0 16px 32px -14px rgba(11,37,69,0.1);display:flex;flex-direction:column;gap:28px;">
+        <div style="font-size:11px;color:#2F6FED;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Шрифт: Inter (Google Fonts) · веса 400–900</div>
+
+        <div style="display:flex;align-items:baseline;gap:24px;border-bottom:1px solid #EEF1F6;padding-bottom:24px;flex-wrap:wrap;">
+          <div style="width:170px;font-size:12px;color:#7A8AA0;">H1 / 40px / 800</div>
+          <div style="font-size:40px;font-weight:800;letter-spacing:-1px;color:#0B2545;">Заголовок H1</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:24px;border-bottom:1px solid #EEF1F6;padding-bottom:24px;flex-wrap:wrap;">
+          <div style="width:170px;font-size:12px;color:#7A8AA0;">H2 / 28–32px / 800</div>
+          <div style="font-size:30px;font-weight:800;letter-spacing:-0.6px;color:#0B2545;">Заголовок секции H2</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:24px;border-bottom:1px solid #EEF1F6;padding-bottom:24px;flex-wrap:wrap;">
+          <div style="width:170px;font-size:12px;color:#7A8AA0;">H3 / 16–20px / 700</div>
+          <div style="font-size:18px;font-weight:700;color:#0B2545;">Заголовок карточки H3</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:24px;border-bottom:1px solid #EEF1F6;padding-bottom:24px;flex-wrap:wrap;">
+          <div style="width:170px;font-size:12px;color:#7A8AA0;">Body / 14.5–16.5px / 400</div>
+          <div style="font-size:15.5px;color:#3A4658;line-height:1.7;max-width:520px;">Основной текст параграфа. Используется для описаний, приветственного слова и информационных блоков.</div>
+        </div>
+        <div style="display:flex;align-items:baseline;gap:24px;flex-wrap:wrap;">
+          <div style="width:170px;font-size:12px;color:#7A8AA0;">Eyebrow / 12px / 700</div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:28px;height:2px;background:#2F6FED;"></div>
+            <div style="font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#2F6FED;">НАДЗАГОЛОВОК ПЕРЕД H2</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BUTTONS -->
+    <section style="margin-bottom:64px;">
+      <h2 style="font-size:22px;font-weight:800;letter-spacing:-0.4px;color:#0B2545;margin:0 0 24px;">Кнопки</h2>
+      <div style="background:#fff;border-radius:16px;padding:40px;box-shadow:0 4px 12px rgba(11,37,69,0.03), 0 16px 32px -14px rgba(11,37,69,0.1);display:flex;flex-wrap:wrap;gap:20px;align-items:center;">
+        <button style="padding:16px 30px;border-radius:100px;background:#0B2545;color:#fff;font-size:14px;font-weight:600;letter-spacing:0.3px;border:none;cursor:pointer;font-family:'Inter',sans-serif;">Основная кнопка</button>
+        <a href="#" style="padding:16px 30px;border-radius:100px;border:1px solid rgba(11,37,69,0.16);color:#0B2545;font-size:14px;font-weight:600;letter-spacing:0.3px;">Вторичная кнопка</a>
+        <a href="#" style="padding:11px 24px;border-radius:100px;background:#0B2545;color:#fff;font-size:13px;font-weight:600;letter-spacing:0.4px;">Кнопка в шапке</a>
+        <a href="#" style="padding:14px 26px;border-radius:100px;background:#2F6FED;color:#fff;font-size:13.5px;font-weight:700;">Акцентная (синяя)</a>
+      </div>
+    </section>
+
+    <!-- CARDS -->
+    <section style="margin-bottom:64px;">
+      <h2 style="font-size:22px;font-weight:800;letter-spacing:-0.4px;color:#0B2545;margin:0 0 24px;">Карточки</h2>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:22px;">
+        <div style="background:#F6F8FB;border-radius:18px;padding:32px;">
+          <div style="width:52px;height:52px;border-radius:50%;background:#EEF3FA;margin-bottom:20px;"></div>
+          <div style="font-size:16.5px;font-weight:700;color:#0B2545;margin-bottom:9px;">Карточка на светлом фоне</div>
+          <div style="font-size:13.5px;line-height:1.65;color:#5B6B82;">radius: 18px · фон #F6F8FB · без тени</div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:32px;box-shadow:0 4px 12px rgba(11,37,69,0.03), 0 16px 32px -14px rgba(11,37,69,0.1);">
+          <div style="width:52px;height:52px;border-radius:50%;background:#EEF3FA;margin-bottom:20px;"></div>
+          <div style="font-size:16.5px;font-weight:700;color:#0B2545;margin-bottom:9px;">Белая карточка с тенью</div>
+          <div style="font-size:13.5px;line-height:1.65;color:#5B6B82;">radius: 16px · тень мягкая двухслойная</div>
+        </div>
+        <div style="background:#0B2545;border-radius:16px;padding:32px;">
+          <div style="width:52px;height:52px;border-radius:50%;background:rgba(255,255,255,0.1);margin-bottom:20px;"></div>
+          <div style="font-size:16.5px;font-weight:700;color:#fff;margin-bottom:9px;">Тёмная акцентная карточка</div>
+          <div style="font-size:13.5px;line-height:1.65;color:rgba(255,255,255,0.68);">radius: 16px · фон #0B2545 · для CTA-блоков</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM ELEMENTS -->
+    <section style="margin-bottom:64px;">
+      <h2 style="font-size:22px;font-weight:800;letter-spacing:-0.4px;color:#0B2545;margin:0 0 24px;">Поля форм</h2>
+      <div style="background:#fff;border-radius:16px;padding:40px;box-shadow:0 4px 12px rgba(11,37,69,0.03), 0 16px 32px -14px rgba(11,37,69,0.1);display:flex;flex-direction:column;gap:20px;max-width:420px;">
+        <div>
+          <label style="display:block;font-size:12.5px;font-weight:700;color:#0B2545;margin-bottom:8px;">Обычное поле</label>
+          <input type="text" placeholder="Плейсхолдер" style="width:100%;box-sizing:border-box;padding:13px 16px;border-radius:10px;border:1px solid #dfe4ec;font-size:14.5px;font-family:'Inter',sans-serif;">
+        </div>
+        <div>
+          <label style="display:block;font-size:12.5px;font-weight:700;color:#0B2545;margin-bottom:8px;">Поле с ошибкой</label>
+          <input type="text" placeholder="Плейсхолдер" style="width:100%;box-sizing:border-box;padding:13px 16px;border-radius:10px;border:1px solid #c0392b;font-size:14.5px;font-family:'Inter',sans-serif;">
+          <div style="color:#c0392b;font-size:12px;margin-top:4px;">Текст ошибки валидации</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ICONOGRAPHY / MISC -->
+    <section>
+      <h2 style="font-size:22px;font-weight:800;letter-spacing:-0.4px;color:#0B2545;margin:0 0 24px;">Прочие принципы</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:20px;">
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 12px rgba(11,37,69,0.03), 0 16px 32px -14px rgba(11,37,69,0.1);">
+          <div style="font-size:15px;font-weight:700;color:#0B2545;margin-bottom:10px;">Скругления</div>
+          <div style="font-size:13.5px;line-height:1.7;color:#5B6B82;">Кнопки — 100px (pill). Карточки — 16–20px. Поля ввода — 10px.</div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 12px rgba(11,37,69,0.03), 0 16px 32px -14px rgba(11,37,69,0.1);">
+          <div style="font-size:15px;font-weight:700;color:#0B2545;margin-bottom:10px;">Отступы секций</div>
+          <div style="font-size:13.5px;line-height:1.7;color:#5B6B82;">Между крупными секциями — 64–110px. Внутри карточек — 28–40px.</div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 12px rgba(11,37,69,0.03), 0 16px 32px -14px rgba(11,37,69,0.1);">
+          <div style="font-size:15px;font-weight:700;color:#0B2545;margin-bottom:10px;">Тени</div>
+          <div style="font-size:13.5px;line-height:1.7;color:#5B6B82;">Двухслойные, мягкие: 0 4px 12px rgba(11,37,69,.03) + 0 16–24px 32–48px rgba(11,37,69,.1–.12).</div>
+        </div>
+        <div style="background:#fff;border-radius:16px;padding:28px;box-shadow:0 4px 12px rgba(11,37,69,0.03), 0 16px 32px -14px rgba(11,37,69,0.1);">
+          <div style="font-size:15px;font-weight:700;color:#0B2545;margin-bottom:10px;">Максимальная ширина контента</div>
+          <div style="font-size:13.5px;line-height:1.7;color:#5B6B82;">1200px для основного контента, 560–640px для узких текстовых/форм-блоков.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer style="background:#071730;padding:64px 40px 30px;margin-top:20px;">
+    <div style="max-width:1200px;margin:0 auto;">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding-top:24px;flex-wrap:wrap;gap:12px;">
+        <div style="font-size:12.5px;color:rgba(255,255,255,0.38);">© 2021–2025 Пироговский Офтальмологический Форум. Все права защищены.</div>
+        <a href="index.dc.html" style="font-size:12.5px;color:rgba(255,255,255,0.38);">На главную</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+
+class Component extends DCLogic {
+  state = { ready: true };
+  colors = [
+    { name: 'Primary Dark', hex: '#0B2545' },
+    { name: 'Accent Blue', hex: '#2F6FED' },
+    { name: 'Link Blue', hex: '#1B63C7' },
+    { name: 'Background', hex: '#F6F8FB' },
+    { name: 'Surface Tint', hex: '#EEF3FA' },
+    { name: 'Text Primary', hex: '#1B2637' },
+    { name: 'Text Secondary', hex: '#5B6B82' },
+    { name: 'Text Muted', hex: '#7A8AA0' }
+  ];
+  renderVals() {
+    return { colors: this.colors.slice() };
+  }
+}
+
+</script>
+</body>
+</html>
