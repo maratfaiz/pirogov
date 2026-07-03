@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /Style-Guide.html
+
+Sitemap: https://pirogoveyeforum.ru/sitemap.xml
