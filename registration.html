@@ -155,7 +155,9 @@
         </label>
         <sc-if value="{{ errors.consent }}" hint-placeholder-val="{{ false }}"><div style="color:#c0392b;font-size:12px;margin-top:-12px;">Необходимо согласие на обработку персональных данных</div></sc-if>
 
-        <button onclick="{{ submitForm }}" style="margin-top:4px;padding:16px;border:none;border-radius:100px;background:#0B2545;color:#fff;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.2px;">Отправить заявку</button>
+        <sc-if value="{{ submitError }}" hint-placeholder-val="{{ false }}"><div style="color:#c0392b;font-size:13px;text-align:center;">Не удалось отправить заявку. Проверьте соединение и попробуйте ещё раз.</div></sc-if>
+
+        <button onclick="{{ submitForm }}" disabled="{{ submitting }}" style="margin-top:4px;padding:16px;border:none;border-radius:100px;background:#0B2545;color:#fff;font-size:15px;font-weight:700;cursor:pointer;letter-spacing:0.2px;opacity:{{ submitOpacity }};">{{ submitButtonLabel }}</button>
       </div>
     </sc-if>
   </main>
@@ -201,17 +203,32 @@
 <script type="text/x-dc" data-dc-script>
 
 class Component extends DCLogic {
+  // Вставьте сюда URL веб-приложения Google Apps Script (заканчивается на /exec).
+  // См. инструкцию по развёртыванию скрипта, который пишет заявки в Google Таблицу
+  // и дублирует их на почту.
+  SHEET_ENDPOINT = 'ВСТАВЬТЕ_СЮДА_URL_ВАШЕГО_APPS_SCRIPT';
+
   state = {
     submitted: false,
+    submitting: false,
+    submitError: false,
     form: { name: '', specialty: '', org: '', email: '', phone: '', format: 'offline', consent: true },
     errors: { name: false, specialty: false, email: false, consent: false },
-    fileName: ''
+    fileName: '',
+    file: null
   };
 
   setFile = (e) => {
     const f = e.target.files && e.target.files[0];
-    this.setState({ fileName: f ? f.name : '' });
+    this.setState({ fileName: f ? f.name : '', file: f || null });
   };
+
+  fileToBase64 = (file) => new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(String(reader.result).split(',')[1] || '');
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 
   setName = (e) => this.setState(s => ({ form: { ...s.form, name: e.target.value } }));
   setSpecialty = (e) => this.setState(s => ({ form: { ...s.form, specialty: e.target.value } }));
@@ -222,22 +239,50 @@ class Component extends DCLogic {
   setFormatOffline = () => this.setState(s => ({ form: { ...s.form, format: 'offline' } }));
   setFormatOnline = () => this.setState(s => ({ form: { ...s.form, format: 'online' } }));
 
-  submitForm = () => {
+  submitForm = async () => {
     const { name, specialty, email, consent } = this.state.form;
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     const errors = { name: !name.trim(), specialty: !specialty.trim(), email: !emailOk, consent: !consent };
     this.setState({ errors });
-    if (!errors.name && !errors.specialty && !errors.email && !errors.consent) {
-      this.setState({ submitted: true });
+    if (errors.name || errors.specialty || errors.email || errors.consent) return;
+
+    this.setState({ submitting: true, submitError: false });
+    try {
+      const { file, fileName, form } = this.state;
+      const payload = {
+        name: form.name,
+        specialty: form.specialty,
+        org: form.org,
+        email: form.email,
+        phone: form.phone,
+        fileName: fileName || ''
+      };
+      if (file) payload.fileBase64 = await this.fileToBase64(file);
+
+      // Апс-скрипт не отдаёт CORS-заголовки, поэтому шлём в режиме no-cors —
+      // ответ прочитать нельзя, успех определяем по отсутствию сетевой ошибки.
+      await fetch(this.SHEET_ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      this.setState({ submitted: true, submitting: false });
+    } catch (err) {
+      this.setState({ submitting: false, submitError: true });
     }
   };
 
   renderVals() {
-    const { submitted, form, errors, fileName } = this.state;
+    const { submitted, submitting, submitError, form, errors, fileName } = this.state;
     const borderFor = (err) => err ? '#c0392b' : '#dfe4ec';
     return {
       submitted,
       notSubmitted: !submitted,
+      submitting,
+      submitError,
+      submitButtonLabel: submitting ? 'Отправка…' : 'Отправить заявку',
+      submitOpacity: submitting ? 0.6 : 1,
       form,
       errors,
       nameBorder: borderFor(errors.name),
