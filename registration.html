@@ -238,6 +238,47 @@ class Component extends DCLogic {
   setFormatOffline = () => this.setState(s => ({ form: { ...s.form, format: 'offline' } }));
   setFormatOnline = () => this.setState(s => ({ form: { ...s.form, format: 'online' } }));
 
+  // Apps Script отвечает 302-редиректом на другой домен (googleusercontent.com),
+  // и именно на этом редиректе спотыкается fetch(no-cors) — Chrome бросает
+  // "Failed to fetch". Надёжный обходной путь — обычная HTML-форма, отправленная
+  // в скрытый iframe: для навигации внутри iframe кросс-доменный редирект не
+  // проблема. Прочитать ответ всё равно нельзя (другой домен), поэтому
+  // об успехе судим по срабатыванию iframe.onload.
+  getSubmitFrame = () => {
+    let iframe = document.getElementById('dc-submit-frame');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.id = 'dc-submit-frame';
+      iframe.name = 'dc-submit-frame';
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+    }
+    return iframe;
+  };
+
+  postToSheet = (payload) => new Promise((resolve, reject) => {
+    const iframe = this.getSubmitFrame();
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = this.SHEET_ENDPOINT;
+    form.target = 'dc-submit-frame';
+    Object.keys(payload).forEach((key) => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = payload[key] == null ? '' : payload[key];
+      form.appendChild(input);
+    });
+    const timeout = setTimeout(() => reject(new Error('timeout')), 15000);
+    iframe.onload = () => {
+      clearTimeout(timeout);
+      resolve();
+    };
+    document.body.appendChild(form);
+    form.submit();
+    form.remove();
+  });
+
   submitForm = async () => {
     const { name, specialty, email, consent } = this.state.form;
     const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -258,14 +299,7 @@ class Component extends DCLogic {
       };
       if (file) payload.fileBase64 = await this.fileToBase64(file);
 
-      // Апс-скрипт не отдаёт CORS-заголовки, поэтому шлём в режиме no-cors —
-      // ответ прочитать нельзя, успех определяем по отсутствию сетевой ошибки.
-      await fetch(this.SHEET_ENDPOINT, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload)
-      });
+      await this.postToSheet(payload);
       this.setState({ submitted: true, submitting: false });
     } catch (err) {
       this.setState({ submitting: false, submitError: true });
