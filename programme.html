@@ -30,9 +30,10 @@
   }
   @media (max-width:820px){
     div[style*="padding: 18px 40px"]{padding:14px 16px !important;}
-    header nav[style*="gap: 2px"]{overflow-x:auto !important;-webkit-overflow-scrolling:touch !important;max-width:100% !important;scrollbar-width:none !important;}
-    header nav[style*="gap: 2px"]::-webkit-scrollbar{display:none !important;}
-    header nav[style*="gap: 2px"] a{white-space:nowrap !important;flex-shrink:0 !important;}
+    .dc-nav-desktop{display:none !important;}
+    .dc-cta-desktop{display:none !important;}
+    .dc-burger-btn{display:flex !important;}
+    #nav-toggle:checked ~ .dc-nav-mobile{display:flex !important;}
     a[style*="font-size: 16px; font-weight: 800"]{font-size:14px !important;}
     div[style*="font-size: 16px; font-weight: 800"]{font-size:14px !important;}
     div[style*="font-size: 15px; font-weight: 800"]{font-size:13.5px !important;}
@@ -54,6 +55,7 @@
 
   <!-- NAV -->
   <header style="position:sticky;top:0;z-index:50;background:rgba(255,255,255,0.92);backdrop-filter:blur(10px);border-bottom:1px solid rgba(11,37,69,0.07);">
+    <input type="checkbox" id="nav-toggle" style="display:none;">
     <div style="max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:18px 40px;gap:24px;">
       <a href="index.html" style="display:flex;align-items:center;gap:13px;">
         <div style="line-height:1.2;">
@@ -61,15 +63,28 @@
         </div>
       </a>
 
-      <nav style="display:flex;align-items:center;gap:2px;">
+      <nav class="dc-nav-desktop" style="display:flex;align-items:center;gap:2px;">
         <a href="index.html" style="padding:9px 16px;border-radius:100px;font-size:13px;letter-spacing:0.3px;color:#5B6B82;background:transparent;font-weight:600;white-space:nowrap;">О ФОРУМЕ</a>
         <a href="programme.html" style="padding:9px 16px;border-radius:100px;font-size:13px;letter-spacing:0.3px;color:#0B2545;background:#EEF3FA;font-weight:600;white-space:nowrap;">ПРОГРАММА</a>
         <a href="participants.html" style="padding:9px 16px;border-radius:100px;font-size:13px;letter-spacing:0.3px;color:#5B6B82;background:transparent;font-weight:600;white-space:nowrap;">УЧАСТНИКАМ</a>
         <a href="partners.html" style="padding:9px 16px;border-radius:100px;font-size:13px;letter-spacing:0.3px;color:#5B6B82;background:transparent;font-weight:600;white-space:nowrap;">ПАРТНЁРАМ</a>
       </nav>
 
-      <a href="registration.html" style="flex:none;padding:11px 24px;border-radius:100px;background:#0B2545;color:#fff;font-size:13px;font-weight:600;letter-spacing:0.4px;">РЕГИСТРАЦИЯ</a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <a href="registration.html" class="dc-cta-desktop" style="flex:none;padding:11px 24px;border-radius:100px;background:#0B2545;color:#fff;font-size:13px;font-weight:600;letter-spacing:0.4px;">РЕГИСТРАЦИЯ</a>
+        <label for="nav-toggle" class="dc-burger-btn" style="display:none;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;cursor:pointer;flex:none;">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5.5H17" stroke="#0B2545" stroke-width="1.6" stroke-linecap="round"></path><path d="M3 10H17" stroke="#0B2545" stroke-width="1.6" stroke-linecap="round"></path><path d="M3 14.5H17" stroke="#0B2545" stroke-width="1.6" stroke-linecap="round"></path></svg>
+        </label>
+      </div>
     </div>
+
+    <nav class="dc-nav-mobile" style="display:none;flex-direction:column;padding:6px 20px 22px;gap:6px;">
+      <a href="index.html" style="padding:12px 16px;border-radius:12px;font-size:14px;letter-spacing:0.3px;color:#5B6B82;background:transparent;font-weight:600;">О ФОРУМЕ</a>
+      <a href="programme.html" style="padding:12px 16px;border-radius:12px;font-size:14px;letter-spacing:0.3px;color:#0B2545;background:#EEF3FA;font-weight:600;">ПРОГРАММА</a>
+      <a href="participants.html" style="padding:12px 16px;border-radius:12px;font-size:14px;letter-spacing:0.3px;color:#5B6B82;background:transparent;font-weight:600;">УЧАСТНИКАМ</a>
+      <a href="partners.html" style="padding:12px 16px;border-radius:12px;font-size:14px;letter-spacing:0.3px;color:#5B6B82;background:transparent;font-weight:600;">ПАРТНЁРАМ</a>
+      <a href="registration.html" style="margin-top:6px;padding:13px 16px;border-radius:12px;background:#0B2545;color:#fff;font-size:14px;font-weight:700;letter-spacing:0.4px;text-align:center;">РЕГИСТРАЦИЯ</a>
+    </nav>
   </header>
 
   <main>
