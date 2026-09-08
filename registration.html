@@ -320,7 +320,10 @@ class Component extends DCLogic {
         phone: form.phone,
         fileName: fileName || ''
       };
-      if (file) payload.fileBase64 = await this.fileToBase64(file);
+      if (file) {
+        payload.fileBase64 = await this.fileToBase64(file);
+        payload.fileType = file.type || '';
+      }
 
       await this.postToSheet(payload);
       this.setState({ submitted: true, submitting: false });
